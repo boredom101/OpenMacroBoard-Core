@@ -31,7 +31,7 @@ namespace OpenMacroBoard.SDK
             e.UpdateLayout();
 
             //Render the element as bitmap
-            RenderTargetBitmap renderer = new RenderTargetBitmap(width, height, 96, 96, PixelFormats.Pbgra32);
+            RenderTargetBitmap renderer = new RenderTargetBitmap(width, height, 96, 96, System.Windows.Media.PixelFormats.Pbgra32);
             renderer.Render(e);
 
             //Convert to StreamDeck compatible format
