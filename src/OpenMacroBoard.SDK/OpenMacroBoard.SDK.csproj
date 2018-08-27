@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Bgr24.cs" />
     <Compile Include="Bgra32.cs" />
+    <Compile Include="BitmapConvertions.cs" />
     <Compile Include="BitmapData.cs" />
     <Compile Include="ConnectionEventArgs.cs" />
     <Compile Include="IDeviceReferenceHandle.cs" />
@@ -69,7 +70,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetKeyExtensions.cs" />
     <Compile Include="StreamDeckFullScreenDrawingExtension.cs" />
-    <Compile Include="UnsafeBitmapConvertions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

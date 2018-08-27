@@ -4,8 +4,25 @@ using System.Drawing.Imaging;
 
 namespace OpenMacroBoard.SDK
 {
-    internal unsafe static class UnsafeBitmapConvertions
+    internal unsafe static class BitmapConvertions
     {
+        public class TransformationAction
+        {
+            private UnsafeTransformationAction action;
+
+            private TransformationAction(UnsafeTransformationAction action)
+            {
+                this.action = action ?? throw new ArgumentNullException(nameof(action));
+            }
+        }
+
+        public static TransformationAction Bgr24ToBgr24 { get; }
+
+        static BitmapConvertions()
+        {
+            Bgr24ToBgr24 = new TransformationAction(Transform_Bgr24ToBgr24);
+        }
+
         public static BitmapData ToRawBgr24(this Bitmap bitmap)
         {
             var w = bitmap.Width;
@@ -47,15 +64,15 @@ namespace OpenMacroBoard.SDK
             }
         }
 
-        private static TransformationAction FindTransformationForPair(PixelFormat originalFormat, IPixelFormat targetFormat)
+        private static UnsafeTransformationAction FindTransformationForPair(PixelFormat originalFormat, IPixelFormat targetFormat)
         {
             if (targetFormat != PixelFormats.Bgr24)
                 throw new NotImplementedException();
 
             switch (originalFormat)
             {
-                case PixelFormat.Format24bppRgb: return Brg24ToBgr24;
-                case PixelFormat.Format32bppArgb: return Brga32ToBgr24;
+                case PixelFormat.Format24bppRgb: return Transform_Bgr24ToBgr24;
+                case PixelFormat.Format32bppArgb: return Transform_Brga32ToBgr24;
                 default:
                     throw new NotSupportedException();
             }
@@ -68,14 +85,14 @@ namespace OpenMacroBoard.SDK
         /// <param name="sourceStart"></param>
         /// <param name="targetData"></param>
         /// <param name="targetStart"></param>
-        private static void Brg24ToBgr24(byte* sourceData, int sourceStart, byte* targetData, int targetStart)
+        private static void Transform_Bgr24ToBgr24(byte* sourceData, int sourceStart, byte* targetData, int targetStart)
         {
             targetData[targetStart + 0] = sourceData[sourceStart + 0];
             targetData[targetStart + 1] = sourceData[sourceStart + 1];
             targetData[targetStart + 2] = sourceData[sourceStart + 2];
         }
 
-        private static void Brga32ToBgr24(byte* sourceData, int sourceStart, byte* targetData, int targetStart)
+        public static void Transform_Brga32ToBgr24(byte* sourceData, int sourceStart, byte* targetData, int targetStart)
         {
             double alpha = (double)sourceData[sourceStart + 3] / 255f;
             targetData[targetStart + 0] = (byte)Math.Round(sourceData[sourceStart + 0] * alpha);
@@ -83,13 +100,13 @@ namespace OpenMacroBoard.SDK
             targetData[targetStart + 2] = (byte)Math.Round(sourceData[sourceStart + 2] * alpha);
         }
 
-        public delegate void TransformationAction(byte* sourceData, int sourceStart, byte* targetData, int targetStart);
+        public delegate void UnsafeTransformationAction(byte* sourceData, int sourceStart, byte* targetData, int targetStart);
 
         private static void BitmapTransformation(
             int width, int height,
             byte* srcData, int srcStride, int srcBytePerPixel,
             byte* tarData, int tarStride, int tarBytePerPixel,
-            TransformationAction tranformationAction
+            UnsafeTransformationAction tranformationAction
         )
         {
             for (int y = 0; y < height; y++)
