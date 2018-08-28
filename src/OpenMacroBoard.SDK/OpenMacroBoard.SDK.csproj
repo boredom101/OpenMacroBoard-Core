@@ -51,15 +51,14 @@
     <Compile Include="Bgr24.cs" />
     <Compile Include="Bgra32.cs" />
     <Compile Include="BitmapConvertions.cs" />
-    <Compile Include="BitmapData.cs" />
     <Compile Include="ConnectionEventArgs.cs" />
     <Compile Include="IDeviceReferenceHandle.cs" />
-    <Compile Include="IKeyBitmapDataAccess.cs" />
     <Compile Include="IKeyBitmapFactory.cs" />
     <Compile Include="IKeyPositionCollection.cs" />
     <Compile Include="IMarcoBoard.cs" />
     <Compile Include="IPixelFormat.cs" />
     <Compile Include="KeyBitmap.cs" />
+    <Compile Include="KeyBitmap1.cs" />
     <Compile Include="KeyBitmapBasicExtensions.cs" />
     <Compile Include="KeyBitmapDrawingExtensions.cs" />
     <Compile Include="KeyBitmapFactoryExtensions.cs" />

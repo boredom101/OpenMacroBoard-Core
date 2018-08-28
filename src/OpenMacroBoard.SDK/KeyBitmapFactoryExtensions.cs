@@ -38,36 +38,17 @@ namespace OpenMacroBoard.SDK
             var pbgra32 = new byte[width * height * 4];
             renderer.CopyPixels(pbgra32, width * 4, 0);
 
-            var bitmapData = ConvertPbgra32ToBgr24(pbgra32, width, height);
-            return new KeyBitmap(width, height, bitmapData);
-        }
+            var bgrTarget = new byte[width * height * 3];
 
-        /// <summary>
-        /// Convert 32bit color (4 channel) to 24bit bgr
-        /// </summary>
-        /// <param name="pbgra32"></param>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        /// <returns></returns>
-        internal static byte[] ConvertPbgra32ToBgr24(byte[] pbgra32, int width, int height)
-        {
-            var data = new byte[width * height * 3];
+            //var bitmapData = ConvertPbgra32ToBgr24(pbgra32, width, height);
+            BitmapConvertions.BitmapTransformation(
+                width, height,
+                pbgra32, width * 4, 4,
+                bgrTarget, width * 3, 3,
+                BitmapConvertions.Bgra32ToBgr24
+            );
 
-            for (int y = 0; y < height; y++)
-                for (int x = 0; x < width; x++)
-                {
-                    var pos = y * width + x;
-                    var posSrc = pos * 4;
-                    var posTar = pos * 3;
-
-                    double alpha = pbgra32[posSrc + 3] / 255.0;
-
-                    data[posTar + 0] = (byte)Math.Round(pbgra32[posSrc + 0] * alpha);
-                    data[posTar + 1] = (byte)Math.Round(pbgra32[posSrc + 1] * alpha);
-                    data[posTar + 2] = (byte)Math.Round(pbgra32[posSrc + 2] * alpha);
-                }
-
-            return data;
+            return new KeyBitmap(width, height, width * 3, PixelFormats.Bgr24);
         }
     }
 }

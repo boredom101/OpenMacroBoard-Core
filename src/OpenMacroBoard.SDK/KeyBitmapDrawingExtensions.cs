@@ -65,7 +65,7 @@ namespace OpenMacroBoard.SDK
         /// <param name="bitmap"></param>
         /// <returns></returns>
         public static KeyBitmap FromBitmap(this IKeyBitmapFactory builder, Bitmap bitmap)
-            => new KeyBitmap(bitmap.Width, bitmap.Height, bitmap.ToRawBgr24().data);
+            => bitmap.ToRawBgr24();
 
         private static Bitmap CreateKeyBitmap(int width, int height)
         {
