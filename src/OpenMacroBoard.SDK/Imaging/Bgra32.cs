@@ -1,4 +1,4 @@
-﻿namespace OpenMacroBoard.SDK
+﻿namespace OpenMacroBoard.SDK.Imaging
 {
     /// <summary>
     /// A <see cref="IPixelFormat"/> that is four bytes in size.

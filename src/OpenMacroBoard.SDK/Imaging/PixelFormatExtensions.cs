@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing.Imaging;
 
-namespace OpenMacroBoard.SDK
+namespace OpenMacroBoard.SDK.Imaging
 {
     internal static class PixelFormatExtensions
     {
@@ -16,7 +16,7 @@ namespace OpenMacroBoard.SDK
             }
         }
 
-        public static IPixelFormat ToMacroBoardPixelFormat(this PixelFormat format)
+        public static IPixelFormat ToIPixelFormat(this PixelFormat format)
         {
             switch (format)
             {

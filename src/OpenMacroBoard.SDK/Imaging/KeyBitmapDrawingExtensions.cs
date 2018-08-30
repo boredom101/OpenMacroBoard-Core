@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 
-namespace OpenMacroBoard.SDK
+namespace OpenMacroBoard.SDK.Imaging
 {
     /// <summary>
     /// KeyBitmap factory extensions based on System.Drawing

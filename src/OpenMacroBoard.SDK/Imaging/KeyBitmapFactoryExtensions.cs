@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace OpenMacroBoard.SDK
+namespace OpenMacroBoard.SDK.Imaging
 {
     /// <summary>
     /// KeyBitmap factory extensions based on System.Windows (WPF)

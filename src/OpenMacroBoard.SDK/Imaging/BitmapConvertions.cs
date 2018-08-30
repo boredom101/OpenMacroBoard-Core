@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
-using static OpenMacroBoard.SDK.PixelFormatConvertion;
+using static OpenMacroBoard.SDK.Imaging.PixelFormatConvertion;
 
-namespace OpenMacroBoard.SDK
+namespace OpenMacroBoard.SDK.Imaging
 {
     public unsafe static class PixelFormatConvertion
     {
@@ -16,6 +16,14 @@ namespace OpenMacroBoard.SDK
     {
         private readonly Dictionary<(IPixelFormat source, IPixelFormat target), PixelConvert> registeredConverters
             = new Dictionary<(IPixelFormat source, IPixelFormat target), PixelConvert>();
+
+        public static BitmapConverter Default { get; }
+
+        static BitmapConverter()
+        {
+            Default = new BitmapConverter();
+            Default.RegisterDefaults();
+        }
 
         public BitmapConverter()
         {
@@ -60,17 +68,9 @@ namespace OpenMacroBoard.SDK
         }
     }
 
-    internal unsafe static class BitmapConvertions
+    internal static class BitmapConvertionsExtension
     {
-        public static BitmapConverter Default { get; }
-
-        static BitmapConvertions()
-        {
-            Default = new BitmapConverter();
-            Default.RegisterDefaults();
-        }
-
-        public static KeyBitmap ToRawBgr24(this Bitmap bitmap)
+        public static KeyBitmap ToKeyBitmap(this Bitmap bitmap)
         {
             var w = bitmap.Width;
             var h = bitmap.Height;
@@ -80,9 +80,7 @@ namespace OpenMacroBoard.SDK
             {
                 data = bitmap.LockBits(new Rectangle(0, 0, w, h), ImageLockMode.ReadOnly, bitmap.PixelFormat);
 
-
-
-                var targetStride = targetFormat.BytesPerPixel * w;
+                var targetFormat = bitmap.PixelFormat;
 
                 var targetRawBitmap = new KeyBitmap(w, h, targetStride, targetFormat);
 

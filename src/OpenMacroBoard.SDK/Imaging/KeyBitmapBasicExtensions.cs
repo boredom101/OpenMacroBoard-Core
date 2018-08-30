@@ -1,7 +1,7 @@
 ﻿using OpenMacroBoard.SDK;
 using System;
 
-namespace OpenMacroBoard.SDK
+namespace OpenMacroBoard.SDK.Imaging
 {
     /// <summary>
     /// A basic factory extension to create <see cref="KeyBitmap"/>s

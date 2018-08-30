@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace OpenMacroBoard.SDK
+namespace OpenMacroBoard.SDK.Imaging
 {
     /// <summary>
     /// Contains immutable raw bitmap data with a given format.

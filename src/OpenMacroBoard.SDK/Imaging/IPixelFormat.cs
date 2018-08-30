@@ -1,4 +1,4 @@
-﻿namespace OpenMacroBoard.SDK
+﻿namespace OpenMacroBoard.SDK.Imaging
 {
     /// <summary>
     /// Represents a pixel format for a <see cref="BitmapData"/> object.

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OpenMacroBoard.SDK
+namespace OpenMacroBoard.SDK.Imaging
 {
     internal class StrideConverter
     {

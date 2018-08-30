@@ -1,4 +1,4 @@
-﻿namespace OpenMacroBoard.SDK
+﻿namespace OpenMacroBoard.SDK.Imaging
 {
     public static class PixelFormats
     {
